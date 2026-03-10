@@ -57,10 +57,7 @@ export default function Navbar() {
                         </Link>
 
                         <div className="flex items-center gap-5">
-                            <button type="button" aria-label="搜尋" className="text-black">
-                                <Search className="h-5 w-5 stroke-[1.8]" />
-                            </button>
-
+                           
                             <button type="button" aria-label="購物袋" className="text-black">
                                 <ShoppingBag className="h-5 w-5 stroke-[1.8]" />
                             </button>
@@ -95,9 +92,7 @@ export default function Navbar() {
                         </div>
 
                         <div className="flex items-center gap-5 text-black">
-                            <button type="button" aria-label="搜尋">
-                                <Search className="h-4 w-4 stroke-[1.8]" />
-                            </button>
+                            
                             <button type="button" aria-label="購物袋">
                                 <ShoppingBag className="h-4 w-4 stroke-[1.8]" />
                             </button>
