@@ -44,7 +44,7 @@ export default function Navbar() {
         <>
             {/* Main Navbar */}
             <header
-                className={`fixed inset-x-0 top-0 z-50  border-black/5 bg-[#ffffff]/50 backdrop-blur-xl transition-all duration-300 ease-out ${scrolled
+                className={`fixed inset-x-0 top-0 z-50  border-black/5 bg-[#ffffff]/60 backdrop-blur-xl transition-all duration-300 ease-out ${scrolled
                         ? "h-[52px] shadow-[0_8px_30px_rgba(0,0,0,0.10)]"
                         : "h-[72px] shadow-none"
                     }`}

@@ -207,6 +207,157 @@ function PointerDemo() {
   );
 }
 
+function ParallaxLayers() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const yBack = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const yMid = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const yFront = useTransform(scrollYProgress, [0, 1], [0, -20]);
+
+  return (
+    <section ref={ref} className="px-5 py-24 md:px-10">
+      <SectionTitle
+        eyebrow="PARALLAX"
+        title="前中後景分層，空間感立刻出來"
+        desc="這種很適合山景、產品堆疊、城市夜景，讓畫面不只是平的，而是有深度。"
+      />
+      <div className="relative mx-auto h-[480px] max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#09090d]">
+        <motion.div style={{ y: yBack }} className="absolute inset-x-0 top-0 h-[60%] bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.18),transparent_35%)]" />
+        <motion.div style={{ y: yMid }} className="absolute bottom-16 left-[8%] h-56 w-56 rounded-full bg-white/8 blur-3xl" />
+        <motion.div style={{ y: yMid }} className="absolute right-[10%] top-16 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        <motion.div style={{ y: yFront }} className="absolute bottom-0 left-0 right-0 h-[58%] bg-gradient-to-t from-white/10 to-transparent" />
+        <motion.div style={{ y: yFront }} className="absolute bottom-10 left-[10%] h-36 w-[22%] rounded-[2rem] border border-white/10 bg-white/10 backdrop-blur" />
+        <motion.div style={{ y: yFront }} className="absolute bottom-14 left-[36%] h-48 w-[28%] rounded-[2.3rem] border border-white/10 bg-white/5 backdrop-blur" />
+        <motion.div style={{ y: yFront }} className="absolute bottom-8 right-[10%] h-28 w-[18%] rounded-[1.8rem] border border-white/10 bg-white/10 backdrop-blur" />
+      </div>
+    </section>
+  );
+}
+
+function MarqueeCards() {
+  const cards = ["UI Motion", "Glass Control", "Pinned Story", "Mask Reveal", "Section Snap", "Depth Layer"];
+  return (
+    <section className="overflow-hidden px-5 py-24 md:px-10">
+      <SectionTitle
+        eyebrow="MARQUEE"
+        title="自動滑動的 UI 帶，也超有未來感"
+        desc="很適合拿來展示功能標籤、品牌關鍵字、技術能力，當作過場非常順。"
+      />
+      <motion.div
+        initial={{ x: 0 }}
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+        className="flex w-max gap-5"
+      >
+        {[...cards, ...cards].map((card, i) => (
+          <div key={`${card}-${i}`} className="rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white/85 backdrop-blur md:px-8 md:py-5 md:text-base">
+            {card}
+          </div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function RevealMask() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 80%", "end 40%"],
+  });
+  const clip = useTransform(scrollYProgress, [0, 1], ["inset(0 50% 0 50% round 2rem)", "inset(0 0% 0 0% round 2rem)"]);
+
+  return (
+    <section ref={ref} className="px-5 py-24 md:px-10">
+      <SectionTitle
+        eyebrow="MASK REVEAL"
+        title="由中間打開的 reveal 很高級"
+        desc="不是整塊直接出現，而是像簾幕一樣展開，超適合做影片封面、產品主視覺或英雄段落。"
+      />
+      <motion.div style={{ clipPath: clip as any }} className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#151524] via-[#0c0c12] to-black p-10 md:p-14">
+        <div className="grid items-center gap-10 md:grid-cols-2">
+          <div>
+            <p className="text-sm uppercase tracking-[0.26em] text-white/40">Reveal on Scroll</p>
+            <h3 className="mt-4 text-3xl font-semibold text-white md:text-5xl">畫面不是出現，是被打開</h3>
+            <p className="mt-5 text-sm leading-7 text-white/65 md:text-base">這種你做產品頁一定會愛，因為它比一般 fade 更有儀式感，而且很像完成度很高的品牌官網。</p>
+          </div>
+          <div className="relative h-[280px] rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur">
+            <div className="absolute left-[10%] top-[12%] h-14 w-14 rounded-2xl bg-white/20" />
+            <div className="absolute right-[14%] top-[18%] h-24 w-24 rounded-[1.6rem] bg-white/10" />
+            <div className="absolute bottom-[12%] left-[18%] h-28 w-[60%] rounded-[2rem] bg-gradient-to-r from-white/20 to-white/5" />
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function StaggerList() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: false, amount: 0.25 });
+  const items = ["Scroll trigger", "Stagger children", "Soft blur", "Micro-hover", "Sticky transitions", "Motion hierarchy"];
+
+  return (
+    <section className="px-5 py-24 md:px-10">
+      <SectionTitle
+        eyebrow="STAGGER"
+        title="一個一個接力進場，很舒服"
+        desc="比全部一起冒出來更有節奏，特別適合功能介紹、規格區塊、賣點列表。"
+      />
+      <div ref={ref} className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
+        {items.map((item, i) => (
+          <motion.div
+            key={item}
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0.1, y: 18 }}
+            transition={{ duration: 0.45, delay: i * 0.08 }}
+            className="rounded-[1.8rem] border border-white/10 bg-white/[0.04] p-6 text-white/85"
+          >
+            <div className="mb-3 text-white/35">0{i + 1}</div>
+            <div className="text-lg font-medium">{item}</div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FloatingDock() {
+  const [active, setActive] = useState(2);
+  const items = ["Home", "Gallery", "Specs", "Video", "Buy"];
+  return (
+    <section className="px-5 py-24 md:px-10">
+      <SectionTitle
+        eyebrow="MICRO INTERACTION"
+        title="像 Apple 那種浮動控制器，也能做"
+        desc="這種不是大動畫，但超加分。滑過去會有放大、亮度、磁吸感，整個 UI 立刻活起來。"
+      />
+      <div className="mx-auto flex max-w-4xl justify-center rounded-[2rem] border border-white/10 bg-[#0b0b10] px-8 py-16">
+        <div className="flex items-end gap-3 rounded-full border border-white/10 bg-white/5 p-3 backdrop-blur">
+          {items.map((item, i) => {
+            const isActive = i === active;
+            return (
+              <motion.button
+                key={item}
+                onMouseEnter={() => setActive(i)}
+                animate={{ scale: isActive ? 1.18 : 1, y: isActive ? -4 : 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                className={`rounded-full px-4 py-3 text-sm transition ${isActive ? "bg-white text-black" : "bg-white/5 text-white/80"}`}
+              >
+                {item}
+              </motion.button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function ScrollAnimationsShowcase() {
   const items = useMemo(
     () => [
@@ -266,6 +417,11 @@ export default function ScrollAnimationsShowcase() {
       <ScaleHero />
       <HorizontalGallery />
       <ProgressSection />
+      <ParallaxLayers />
+      <RevealMask />
+      <StaggerList />
+      <MarqueeCards />
+      <FloatingDock />
       <PointerDemo />
 
       <section className="px-5 pb-24 pt-6 md:px-10 md:pb-28">
