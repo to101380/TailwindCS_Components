@@ -175,7 +175,7 @@ export default function PeekCarousel() {
                                     type="button"
                                     aria-label={`前往第 ${index + 1} 張`}
                                     onClick={() => goTo(index)}
-                                    className={`h-2.5 rounded-full transition-all duration-500 ${active
+                                    className={`h-2.5 cursor-pointer rounded-full transition-all duration-500 ${active
                                             ? "w-9 bg-white"
                                             : "w-2.5 bg-white/65 hover:bg-white/90"
                                         }`}
@@ -184,23 +184,7 @@ export default function PeekCarousel() {
                         })}
                     </div>
 
-                    <button
-                        type="button"
-                        onClick={goNext}
-                        disabled={!canNext}
-                        aria-label="下一張"
-                        className="grid h-14 w-14 place-items-center rounded-full bg-white/5 text-white backdrop-blur-md transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="translate-x-[1px]"
-                        >
-                            <path d="M8.5 5.5L18 12L8.5 18.5V5.5Z" />
-                        </svg>
-                    </button>
+                  
                 </div>
             </div>
         </section>

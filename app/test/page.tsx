@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AppleNavbar from "@/components/navbar";
 import PeekCarousel from "@/components/peek-carousel";
+import ScrollAnimationsShowcase from "@/components/animate";
 
 
 function HomePage() {
@@ -34,6 +35,7 @@ export default function Home() {
         <>
             <Page />
             <HomePage />
+            <ScrollAnimationsShowcase />
         </>
     );
 }
